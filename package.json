@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "mern_ecommerce_store",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "server": "nodemon server/index.js",
     "client": "npm start --prefix client",
