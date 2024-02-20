@@ -33,8 +33,10 @@ const orderSchema = new mongoose.Schema({
     isDelivered: {type: Boolean, required: true, default: false},
     deliveredAt: {type: Date},
 }, 
-    { timestamps: true},
-    { versionKey: false }
+    {   
+        timestamps: true,
+        versionKey: false
+    }
 );
 
 const Order = mongoose.model('Order', orderSchema);

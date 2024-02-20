@@ -6,8 +6,10 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false }
 }, 
-    { timestamps: true },
-    { versionKey: false }
+    {   
+        timestamps: true,
+        versionKey: false
+    }
 );
 
 const User = mongoose.model('User', userSchema);
