@@ -65,13 +65,15 @@ export const themeSettings = (mode) => {
                 secondary: {
                     ...tokenDark.secondary,
                     main: tokenDark.secondary[500],
-                    light: tokenDark.secondary[100],
                 },
                 tertiary: {
                     ...tokenDark.blueGrey,
                     main: tokenDark.blueGrey[500],
-                    light: tokenDark.blueGrey[100],
                 },
+                background : {
+                    default: tokenDark.secondary[200],
+                    paper: tokenDark.blueGrey[800],
+                }
             } : {
                 // palette values for light mode
                 primary: {
@@ -89,6 +91,10 @@ export const themeSettings = (mode) => {
                     main: tokenLight.blueGrey[50],
                     light: tokenLight.blueGrey[100],
                 },
+                background : {
+                    default: tokenDark.blueGrey[0],
+                    paper: tokenDark.blueGrey[50],
+                }
             }),
         },
         typography: {

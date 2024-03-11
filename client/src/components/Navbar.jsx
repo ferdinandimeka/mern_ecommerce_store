@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react'
 import React, { useEffect, useState } from 'react'
-import { Box, AppBar, Divider, Menu, MenuItem, Typography, Button } from '@mui/material'
+import { Box, AppBar, Divider, Menu, MenuItem, Typography, Button, Badge } from '@mui/material'
 import { MenuOutlined, ArrowDropDownOutlined,
     FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined,
     LocalPhoneOutlined, MailOutlineOutlined, FacebookOutlined, 
@@ -8,9 +8,9 @@ import { MenuOutlined, ArrowDropDownOutlined,
 } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from './FlexBetween'
-import FlexAround from './FlexAround'
 import { useSelector, useDispatch } from 'react-redux'
 import { Hidden } from '@mui/material'
+import MenuSidebar from './MenuSidebar'
 
 const Navbar = () => {
 
@@ -19,6 +19,7 @@ const Navbar = () => {
     const navigate = useNavigate()
     const { pathname } = useLocation()
 
+    const [isSideBarOpen, setIsSideBarOpen] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleClick = (event) => {
@@ -55,9 +56,13 @@ const Navbar = () => {
         },
     ]
 
+    // useEffect(() => {
+    //     event.preventDefault()
+    // },[])
+
     return (
         <AppBar sx={{
-            backgroundColor: theme.palette.primary[100],
+            backgroundColor: theme.palette.tertiary[50],
             color: theme.palette.text.primary,
             padding: theme.spacing(1),
             boxShadow: theme.shadows[2]
@@ -68,7 +73,7 @@ const Navbar = () => {
             }}>
             <Hidden lgDown>
             <FlexBetween sx={{
-                backgroundColor: theme.palette.primary[200],
+                backgroundColor: theme.palette.tertiary[200],
             }}>
                 <Box sx={{
                     ml: theme.spacing(2)
@@ -79,7 +84,7 @@ const Navbar = () => {
                         </Button>
 
                         <Typography variant='h6' color={theme.palette.primary.main}>
-                            +(234) 9011591262
+                            +(234) 09117663492
                         </Typography>
 
                         <Button>
@@ -132,7 +137,8 @@ const Navbar = () => {
                         </Button>
                     </Typography>
                 </Box>
-
+                
+                <Hidden mdDown>
                 <Box>
                     <FlexBetween>
                         {navItems && navItems.map((item) => (
@@ -146,13 +152,14 @@ const Navbar = () => {
                                 aria-controls={open ? 'demo-customized-menu' : undefined}
                                 aria-expanded={open ? 'true' : undefined}
                                 id='demo-customized-button'
-                                onClick={handleClick}
+                                onClick={item.icon !== null && handleClick}
                             >
                                 <Typography variant="h6" color="primary">
                                     {item.name}
                                 </Typography>
                             </Button>
-                            {item.icon == null ? null : ( 
+                            
+                            {item.icon !== null ? (
                                 <Menu
                                     anchorEl={anchorEl}
                                     open={open}
@@ -170,40 +177,60 @@ const Navbar = () => {
                                     <MenuItem onClick={handleClose}>My account</MenuItem>
                                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                                 </Menu>
-                            )}
+                            ) : null }
                             </FlexBetween>
                         ))}
                     </FlexBetween>
                 </Box>
-
+                </Hidden>
+                
                 <Box
                     color={theme.palette.primary.main}
                 >
                     <FlexBetween>
                         <Person2Outlined />
+                        <Hidden mdDown>
+                        <Typography
+                            variant='h6'
+                            sx={{
+                                cursor: 'pointer'
+                            }}
+                        >Login</Typography>
+                        <Typography mr='0.2rem'>/</Typography>
                         <Typography
                             variant='h6'
                             sx={{
                                 cursor: 'pointer',
-                                // ":hover": {backgroundColor: theme.palette.primary[200]}
-                            }}
-                        >Login</Typography>
-                        <Typography mx='0.2rem'>/</Typography>
-                        <Typography 
-                            variant='h6'
-                            sx={{
-                                cursor: 'pointer'
+                                mr: theme.spacing(1)
                             }}
                         >Register</Typography>
                         <Button>
                             <SearchOutlined />
                         </Button>
-                        <Button>
-                            <ShoppingCartOutlined />
+                        </Hidden>
+                        <Button sx={{
+                            ml: theme.spacing(2)
+                        }}>
+                            <Badge badgeContent={1} color="secondary">
+                                <ShoppingCartOutlined />
+                            </Badge>
                         </Button>
+                        <Hidden mdDown>
                         <Button>
                             <FavoriteBorderOutlined />
                         </Button>
+                        </Hidden>
+
+                        <Hidden mdUp>
+                        <Button onClick={() => setIsSideBarOpen(!isSideBarOpen)}>
+                            <MenuOutlined />
+                            <MenuSidebar
+                                isSideBarOpen={isSideBarOpen}
+                                setIsSideBarOpen={setIsSideBarOpen}
+                                drawerWidth="100%"
+                            />
+                        </Button>   
+                        </Hidden>
                     </FlexBetween>
                 </Box>
             </FlexBetween>
