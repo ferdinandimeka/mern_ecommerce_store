@@ -65,8 +65,8 @@ const Navbar = () => {
             backgroundColor: theme.palette.tertiary[50],
             color: theme.palette.text.primary,
             padding: theme.spacing(1),
-            boxShadow: theme.shadows[2]
-        
+            boxShadow: theme.shadows[2],
+            position: 'sticky',
         }}>
             <Box sx={{
                 mx: theme.spacing(4),
@@ -192,6 +192,7 @@ const Navbar = () => {
                         <Hidden mdDown>
                         <Typography
                             variant='h6'
+                            onClick={() => navigate('/login')}
                             sx={{
                                 cursor: 'pointer'
                             }}
@@ -199,6 +200,7 @@ const Navbar = () => {
                         <Typography mr='0.2rem'>/</Typography>
                         <Typography
                             variant='h6'
+                            onClick={() => navigate('/register')}
                             sx={{
                                 cursor: 'pointer',
                                 mr: theme.spacing(1)

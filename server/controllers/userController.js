@@ -4,12 +4,14 @@ import bcrypt from 'bcryptjs';
 import createToken from '../middlewares/createToken.js';
 
 const addUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+    const { firstname, lastname, email, password } = req.body
 
     // validate
     switch (true) {
-        case !name:
-            return res.status(400).json({ error: 'Name is required' });
+        case !firstname:
+            return res.status(400).json({ error: 'firstname is required' });
+        case !lastname:
+            return res.status(400).json({ error: 'lastname is required' });
         case !email:
             return res.status(400).json({ error: 'Email is required' });
         case !password:
@@ -21,13 +23,13 @@ const addUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'User already exists' });
     }
 
-    const user = new User({ name, email, password: bcrypt.hashSync(password, 8) });
+    const user = new User({ firstname, lastname, email, password: bcrypt.hashSync(password, 8) });
 
     try {
         await user.save();
         createToken(res, user)
 
-        res.status(201).json({ _id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin });
+        res.status(201).json({ _id: user._id, firstname: user.firstname, lastname: user.lastname, email: user.email, isAdmin: user.isAdmin });
     } catch (error) {
         res.status(400)
         throw new Error('Invalid user data')
