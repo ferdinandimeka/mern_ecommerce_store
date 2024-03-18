@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react'
 import { Box, useTheme, Hidden, FormControl, FormHelperText, InputLabel, Input, Button,
     IconButton, Checkbox } from '@mui/material'
